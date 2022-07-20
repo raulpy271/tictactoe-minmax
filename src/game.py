@@ -1,5 +1,5 @@
 
-from typing import Literal, Union
+from typing import Literal, Optional
 
 Player = Literal['X', 'O']
 
@@ -17,8 +17,8 @@ class Game:
     OPONENT_PLAYER: Player  = 'O'
 
     def __init__(self):
-        self.positions = [None] * 9
-        self.current_player: Union[Player, None] = Game.FIRST_PLAYER
+        self.positions: list[Optional[Player]] = [None] * 9
+        self.current_player: Player = Game.FIRST_PLAYER
 
     def execute_move(self, pos: int):
         if self.player_wins():
