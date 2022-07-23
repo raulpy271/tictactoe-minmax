@@ -53,7 +53,42 @@ class Game:
         else:
             raise Exception('Não há vencendores')
 
+    def is_draw(self) -> bool:
+        return not self.possible_moves() and not self.player_wins()
+
+    def possible_moves(self) -> list[int]:
+        moves = []
+        for i in range(9):
+            if self.positions[i] == None:
+                moves.append(i)
+        return moves
+
+    def copy(self):
+        game = Game()
+        game.positions = self.positions.copy()
+        game.current_player = self.current_player
+        return game
+
     def _change_player(self):
         next_player = flip_player(self.current_player)
         self.current_player = next_player
 
+    def __eq__(self, obj):
+        if isinstance(obj, Game):
+            return self.positions == obj.positions and self.current_player == obj.current_player
+        else:
+            return False
+
+    def __str__(self):
+        positions = self.positions.copy()
+        for i in range(9):
+            if positions[i] == None:
+                positions[i] = i
+            elif positions[i] == Game.FIRST_PLAYER:
+                positions[i] = "\033[91mX\033[00m"
+            else:
+                positions[i] = "\033[92mO\033[00m"
+        game_str = """ {} | {} | {}
+ {} | {} | {}
+ {} | {} | {}""".format(*positions)
+        return game_str
