@@ -8,9 +8,7 @@ from src.tree import construct_tree_from_game, evaluate_tree
 class GameWithMinMax:
     def __init__(self):
         self.game = Game()
-        self.tree = construct_tree_from_game(self.game)
-        print('Evaluating the decision tree')
-        evaluate_tree(self.tree)
+        self.tree = None
 
     def get_best_children_for_ia(self):
         draw_children = []
@@ -56,6 +54,20 @@ class GameWithMinMax:
                 else: raise Exception('Move dont found in tree')
             else: raise Exception('Invalid move')
         else: raise Exception("It's not time of human move, execute the ia move first")
+
+    def construct_tree(self, tree=None):
+        if tree:
+            self.tree = tree
+        else:
+            self.tree = construct_tree_from_game(self.game)
+            print('Evaluating the decision tree')
+            evaluate_tree(self.tree)
+
+    def copy(self):
+        minmax = GameWithMinMax()
+        minmax.game = self.game
+        minmax.construct_tree(self.tree)
+        return minmax
 
     def _execute_move_from_tree(self, tree_children: int):
         self.tree = self.tree.children[tree_children]
