@@ -26,12 +26,11 @@ def run_game(game: minmax.GameWithMinMax):
                 continue
 
 if __name__ == '__main__':
-    pre_loaded_game_tree = minmax.GameWithMinMax()
-    pre_loaded_game_tree.construct_tree()
     playing = True
     while playing:
-        current_game = pre_loaded_game_tree.copy()
-        run_game(current_game)
+        minmax_game = minmax.GameWithMinMax()
+        minmax_game.construct_tree()
+        run_game(minmax_game)
         answer = input('do you want play again? [y/n] ')
         if answer != 'y':
             playing = False

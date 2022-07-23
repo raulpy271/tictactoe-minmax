@@ -23,10 +23,8 @@ class GameWithMinMax:
             else:
                 continue
         if best_children:
-            print(f'Best: {best_children}')
             return choice(best_children)
         elif draw_children:
-            print(f'draw: {draw_children}')
             return choice(draw_children)
         else:
             print('all bad moves')
@@ -59,15 +57,10 @@ class GameWithMinMax:
         if tree:
             self.tree = tree
         else:
+            print('Constructing decision tree')
             self.tree = construct_tree_from_game(self.game)
             print('Evaluating the decision tree')
             evaluate_tree(self.tree)
-
-    def copy(self):
-        minmax = GameWithMinMax()
-        minmax.game = self.game
-        minmax.construct_tree(self.tree)
-        return minmax
 
     def _execute_move_from_tree(self, tree_children: int):
         self.tree = self.tree.children[tree_children]
