@@ -1,5 +1,7 @@
 
 from typing import Literal
+from random import choice
+
 from src import minmax 
 
 def run_game(first_player : Literal['human', 'ia']):
@@ -29,7 +31,7 @@ def run_game(first_player : Literal['human', 'ia']):
 if __name__ == '__main__':
     playing = True
     while playing:
-        run_game('ia')
+        run_game(choice(['ia', 'human']))
         answer = input('do you want play again? [y/n] ')
         if answer != 'y':
             playing = False
